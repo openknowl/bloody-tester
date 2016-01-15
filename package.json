@@ -4,7 +4,7 @@
   "description": "Go do some unit tests you bloody tester!",
   "main": "index.js",
   "scripts": {
-    "test": "xo && mocha"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/openknowl/bloody-tester#readme",
   "devDependencies": {
-    "mocha": "^2.3.4",
+    "ava": "^0.10.0",
     "xo": "^0.12.1"
   },
   "xo": {
