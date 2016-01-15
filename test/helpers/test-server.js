@@ -32,4 +32,12 @@ app.post('/body', (req, res) => {
   res.json(req.body);
 });
 
+app.get('/ajax', (req, res) => {
+  if (req.xhr) {
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(403);
+  }
+});
+
 module.exports = app;

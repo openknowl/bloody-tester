@@ -67,3 +67,13 @@ test('send request with full path', async t => {
   const res = await tester.get('http://localhost:1234');
   t.same(res.data, 'hello, get');
 });
+
+test('send AJAX request', async t => {
+  let tester = bloodyTester.createTester(1234);
+  const res1 = await tester.get('/ajax');
+  t.same(res1.status, 403);
+
+  let ajaxTester = bloodyTester.createTester(1234).withAJAX();
+  const res2 = await ajaxTester.get('/ajax');
+  t.same(res2.status, 200);
+});
