@@ -77,3 +77,14 @@ test('send AJAX request', async t => {
   const res2 = await ajaxTester.get('/ajax');
   t.same(res2.status, 200);
 });
+
+test('preserve cookies', async t => {
+  let tester = bloodyTester.createTester(1234);
+  let res = await tester.get('/cookie');
+  t.same(res.data.increment, 1);
+
+  res = await tester.get('/cookie');
+  t.same(res.data.increment, 2);
+  res = await tester.get('/cookie');
+  t.same(res.data.increment, 3);
+});

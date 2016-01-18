@@ -1,12 +1,14 @@
 'use strict';
 
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 
 let app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.end('hello, get');
@@ -38,6 +40,15 @@ app.get('/ajax', (req, res) => {
   } else {
     res.sendStatus(403);
   }
+});
+
+app.get('/cookie', (req, res) => {
+  let increment = req.cookies.increment;
+
+  increment = increment ? parseInt(increment, 10) + 1 : 1;
+
+  res.cookie('increment', increment);
+  res.json({increment});
 });
 
 module.exports = app;
