@@ -88,3 +88,16 @@ test('preserve cookies', async t => {
   res = await tester.get('/cookie');
   t.same(res.data.increment, 3);
 });
+
+test('disable cookies', async t => {
+  let tester = bloodyTester.createTester(1234);
+  tester.disableCookie();
+
+  let res = await tester.get('/cookie');
+  t.same(res.data.increment, 1);
+
+  res = await tester.get('/cookie');
+  t.same(res.data.increment, 1);
+  res = await tester.get('/cookie');
+  t.same(res.data.increment, 1);
+});
