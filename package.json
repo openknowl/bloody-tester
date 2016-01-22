@@ -15,12 +15,12 @@
     "session",
     "scene"
   ],
-  "author": "Hyunje Alex Jun <me@noraesae.net> (http://noraesae.net/)",
+  "author": "openknowl (https://www.openknowl.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/openknowl/bloody-tester/issues"
   },
-  "homepage": "https://github.com/openknowl/bloody-tester#readme",
+  "homepage": "https://github.com/openknowl/bloody-tester",
   "dependencies": {
     "axios": "^0.8.1",
     "lodash": "^4.0.0",
