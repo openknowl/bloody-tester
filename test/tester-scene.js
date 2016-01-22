@@ -21,7 +21,7 @@ test.afterEach(async () => {
 });
 
 test('create a scene', async t => {
-  let scene = tester.createScene();
+  let scene = await tester.createScene();
   t.ok(scene);
 
   await scene.createActor('guido', Person, {id: 12341234, name: 'Guido van Rossum'});
@@ -33,8 +33,21 @@ test('create a scene', async t => {
   t.is(Person.list.length, 1);
 });
 
+test('initialize a scene with instances', async t => {
+  let scene = await tester.createScene([
+    {id: 'guido', type: Person, instance: {id: 12341234, name: 'Guido van Rossum'}},
+    {id: 'james', type: Person, instance: {id: 12341235, name: 'James Gosling'}}
+  ]);
+
+  t.is(Person.list.length, 2);
+  t.same(scene.getActor('guido'), {id: 12341234, name: 'Guido van Rossum'});
+
+  await scene.cleanup();
+  t.is(Person.list.length, 0);
+});
+
 test('register after inserting with HTTP', async t => {
-  let scene = tester.createScene();
+  let scene = await tester.createScene();
   await scene.createActor('guido', Person, {id: 12341234, name: 'Guido van Rossum'});
   await scene.createActor('james', Person, {id: 12341235, name: 'James Gosling'});
 
@@ -48,11 +61,11 @@ test('register after inserting with HTTP', async t => {
 });
 
 test('destroy a scene', async t => {
-  let scene1 = tester.createScene();
+  let scene1 = await tester.createScene();
   await scene1.createActor('guido', Person, {id: 12341234, name: 'Guido van Rossum'});
   await scene1.createActor('james', Person, {id: 12341235, name: 'James Gosling'});
 
-  let scene2 = tester.createScene();
+  let scene2 = await tester.createScene();
   await scene2.createActor('graham', Person, {id: 12341237, name: 'Graham Coxon'});
 
   t.is(Person.list.length, 3);
@@ -65,11 +78,11 @@ test('destroy a scene', async t => {
 });
 
 test('cleanup', async t => {
-  let scene1 = tester.createScene();
+  let scene1 = await tester.createScene();
   await scene1.createActor('guido', Person, {id: 12341234, name: 'Guido van Rossum'});
   await scene1.createActor('james', Person, {id: 12341235, name: 'James Gosling'});
 
-  let scene2 = tester.createScene();
+  let scene2 = await tester.createScene();
   await scene2.createActor('graham', Person, {id: 12341237, name: 'Graham Coxon'});
 
   t.is(Person.list.length, 3);
