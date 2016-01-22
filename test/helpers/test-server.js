@@ -3,6 +3,7 @@
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const Person = require('./actors/person');
 
 let app = express();
 
@@ -49,6 +50,11 @@ app.get('/cookie', (req, res) => {
 
   res.cookie('increment', increment);
   res.json({increment});
+});
+
+app.post('/person', (req, res) => {
+  Person.create(req.body);
+  res.json(req.body);
 });
 
 module.exports = app;
