@@ -35,5 +35,9 @@
   },
   "xo": {
     "space": true
+  },
+  "ava": {
+    "serial": true,
+    "verbose": true
   }
 }
