@@ -1,0 +1,13 @@
+machine:
+  timezone:
+    Asia/Seoul
+  node:
+    version: 4
+
+dependencies:
+  override:
+    - npm install
+
+test:
+  override:
+    - npm test
