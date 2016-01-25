@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/openknowl/bloody-tester",
   "dependencies": {
-    "axios": "^0.8.1",
+    "axios": "^0.9.1",
     "lodash": "^4.0.0",
     "tough-cookie": "^2.2.1"
   },
