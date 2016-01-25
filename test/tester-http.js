@@ -4,8 +4,6 @@ const bloodyTester = require('../');
 const test = require('ava');
 const testServer = require('./helpers/test-server');
 
-require('follow-redirects').maxRedirects = 0;
-
 let server;
 test.before.cb(t => {
   server = testServer.listen(1234, t.end);
