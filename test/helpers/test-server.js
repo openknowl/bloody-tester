@@ -57,4 +57,8 @@ app.post('/person', (req, res) => {
   res.json(req.body);
 });
 
+app.get('/redirect', (req, res) => {
+  res.redirect(req.query.to);
+});
+
 module.exports = app;

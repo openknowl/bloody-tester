@@ -4,6 +4,8 @@ const bloodyTester = require('../');
 const test = require('ava');
 const testServer = require('./helpers/test-server');
 
+require('follow-redirects').maxRedirects = 0;
+
 let server;
 test.before.cb(t => {
   server = testServer.listen(1234, t.end);
@@ -100,4 +102,13 @@ test('disable cookies', async t => {
   t.same(res.data.increment, 1);
   res = await tester.get('/cookie');
   t.same(res.data.increment, 1);
+});
+
+test('redirect', async t => {
+  let tester = bloodyTester.createTester(1234);
+  const res1 = await tester.get('/redirect?to=/');
+  t.same(res1.status, 302);
+
+  const res2 = await tester.get('/redirect?to=/nowhere');
+  t.same(res2.status, 302);
 });
