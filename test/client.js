@@ -47,3 +47,8 @@ test('send request with body', async t => {
   const res = await client.post('http://localhost:1235/body', {a: 10, b: 20});
   t.same(res.data, {a: 10, b: 20});
 });
+
+test('send request with headers', async t => {
+  const res = await client.post('http://localhost:1235/headers', {}, {'custom-header': 'hello?'});
+  t.is(res.data['custom-header'], 'hello?');
+});

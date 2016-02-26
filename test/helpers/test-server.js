@@ -35,6 +35,10 @@ app.post('/body', (req, res) => {
   res.json(req.body);
 });
 
+app.post('/headers', (req, res) => {
+  res.json(req.headers);
+});
+
 app.get('/ajax', (req, res) => {
   if (req.xhr) {
     res.sendStatus(200);
