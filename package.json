@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/openknowl/bloody-tester",
   "dependencies": {
-    "axios": "git+https://github.com/openknowl/axios.git",
     "lodash": "^4.0.0",
+    "request": "^2.69.0",
     "tough-cookie": "^2.2.1"
   },
   "devDependencies": {
