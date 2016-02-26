@@ -1,6 +1,8 @@
 'use strict';
 
 const client = require('../lib/client');
+const fs = require('fs');
+const path = require('path');
 const test = require('ava');
 const testServer = require('./helpers/test-server');
 
@@ -51,4 +53,15 @@ test('send request with body', async t => {
 test('send request with headers', async t => {
   const res = await client.post('http://localhost:1235/headers', {}, {'custom-header': 'hello?'});
   t.is(res.data['custom-header'], 'hello?');
+});
+
+test('upload a file', async t => {
+  let formData = {
+    file: fs.createReadStream(path.join(__dirname, 'assets/test.txt'))
+  };
+  const res = await client.post('http://localhost:1235/file', formData, {'Content-Type': 'multipart/form-data'});
+  t.is(res.data.originalname, 'test.txt');
+
+  // check if an uploaded file exists
+  fs.statSync(path.join(__dirname, 'uploads/test.txt'));
 });

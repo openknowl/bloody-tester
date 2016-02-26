@@ -3,6 +3,9 @@
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const fs = require('fs');
+const multer = require('multer');
+const path = require('path');
 const Person = require('./actors/person');
 
 let app = express();
@@ -63,6 +66,12 @@ app.post('/person', (req, res) => {
 
 app.get('/redirect', (req, res) => {
   res.redirect(req.query.to);
+});
+
+const upload = multer({dest: path.join(__dirname, '../uploads/')});
+app.post('/file', upload.single('file'), (req, res) => {
+  fs.renameSync(req.file.path, path.join(req.file.destination, req.file.originalname));
+  res.json(req.file);
 });
 
 module.exports = app;
