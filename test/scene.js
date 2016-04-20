@@ -38,6 +38,24 @@ test('load multiple actors', async t => {
   t.is(Person.list.length, 0);
 });
 
+test('don\'t destroy original load multiple actors', async t => {
+  let actors = [
+    {id: 'guido', type: Person, instance: {id: 12341234, name: 'Guido van Rossum'}},
+    {id: 'james', type: Person, instance: {id: 12341235, name: 'James Gosling'}}
+  ];
+  await scene.loadActors(actors);
+  t.is(Person.list.length, 2);
+  t.same(scene.getActor('guido'), {id: 12341234, name: 'Guido van Rossum'});
+  await scene.cleanup();
+  t.is(Person.list.length, 0);
+
+  await scene.loadActors(actors);
+  t.is(Person.list.length, 2);
+  t.same(scene.getActor('guido'), {id: 12341234, name: 'Guido van Rossum'});
+  await scene.cleanup();
+  t.is(Person.list.length, 0);
+});
+
 test('retrieve created actors', async t => {
   await scene.createActor('guido', Person, {id: 12341234, name: 'Guido van Rossum'});
   await scene.createActor('james', Person, {id: 12341235, name: 'James Gosling'});
