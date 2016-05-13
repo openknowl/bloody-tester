@@ -27,18 +27,22 @@ let tester = require('bloody-tester').createTester(8080).withAJAX();
 
 let scene = tester.createScene();
 
-before(() => scene.loadActors([
+test.before(() => scene.loadActors([
   {id: 'user1', type: User, instance: {name: 'John'}},
   {id: 'user2', type: User, instance: {name: 'Smith'}},
   {id: 'user3', type: User, instance: {name: 'Parker'}}
 ]);
-after(() => scene.cleanup());
+test.after(() => scene.cleanup());
 
-test(async () => {
-  await res.post('/login', {id: 'admin'});
-  let res = await res.get('/users');
-  assert.equal(res.status, 200);
-  assert.equal(res.data.length, 3);
+test(async t => {
+  // login
+  await tester.post('/login', {id: 'admin'});
+
+  // get users
+  let res = await tester.get('/users');
+
+  t.is(res.status, 200);
+  t.is(res.data.length, 3);
 });
 ```
 
